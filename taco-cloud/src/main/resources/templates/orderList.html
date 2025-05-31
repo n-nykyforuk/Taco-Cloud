@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My order(s)</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+<body>
+<h1>Your order(s)</h1>
+<img th:src="@{/images/TacoCloud.png}" />
+<div th:if="${#lists.isEmpty(orders)}">
+    <p>Your order(s) is empty.</p>
+</div>
+
+<div th:unless="${#lists.isEmpty(orders)}">
+    <table>
+        <thead>
+        <tr>
+            <th>Number</th>
+            <th>Date of issue</th>
+            <th>Name</th>
+            <th>Address</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}">1</td>
+            <td th:text="${#dates.format(order.placedAt, 'dd.MM.yyyy HH:mm')}">01.01.2025</td>
+            <td th:text="${order.deliveryName}">Ім'я</td>
+            <td th:text="${order.deliveryStreet + ', ' + order.deliveryCity + ', ' + order.deliveryZip}">Адреса</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<a th:href="@{/}">Back Home</a>
+</body>
+</html>
